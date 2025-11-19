@@ -1,29 +1,33 @@
 from ultralytics import YOLO
 import cv2
-import torch
+
 
 class ObjectDetector:
-    def __init__(self, model_path='yolov8n.pt'):
-        # Dynamic device selection based on hardware availability
-        # Desktop (RTX 4070S) -> cuda, Surface -> cpu
-        self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
-        print(f"Initializing ObjectDetector on device: {self.device}")
-        
-        self.model = YOLO(model_path)
+    def __init__(self, model_size='n'):
+        # 모델 로드: 'yolov8n.pt' (nano 버전 - 가장 빠름)
+        self.model = YOLO(f'yolov8{model_size}.pt')
 
     def detect(self, image):
         """
-        Detect objects (cars) in the image using YOLOv8.
-        Returns the image with bounding boxes drawn.
+        이미지를 받아 자동차(car, bus, truck)의 위치를 반환합니다.
         """
-        if image is None:
-            return None
+        results = self.model(image, verbose=False)  # verbose=False: 로그 끄기
 
-        # Perform detection
-        results = self.model(image, device=self.device)
+        cars = []
+        # 결과 파싱
+        for result in results:
+            for box in result.boxes:
+                cls_id = int(box.cls[0])
+                class_name = self.model.names[cls_id]
 
-        # Plot results on the image
-        # results[0].plot() returns the image with boxes drawn
-        res_plotted = results[0].plot()
-        
-        return res_plotted
+                # 자동차 계열만 필터링 (car, bus, truck, motorcycle)
+                if class_name in ['car', 'bus', 'truck', 'motorcycle']:
+                    x1, y1, x2, y2 = map(int, box.xyxy[0])
+                    conf = float(box.conf[0])
+
+                    cars.append({
+                        "label": class_name,
+                        "bbox": [x1, y1, x2, y2],  # 경계 상자 좌표
+                        "confidence": conf
+                    })
+        return cars

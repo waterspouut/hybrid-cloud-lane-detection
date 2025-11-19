@@ -5,7 +5,7 @@
   </component>
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$" />
-    <orderEntry type="jdk" jdkName="Python 3.10.19 WSL (Ubuntu-24.04): (/usr/bin/python3.10)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.10.19 WSL (Ubuntu-24.04): (/home/oreum/.virtualenvs/lane-detection/bin/python)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="PyDocumentationSettings">
