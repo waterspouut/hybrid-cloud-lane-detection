@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+
+# React Native / Expo
+node_modules/
+.expo/
+dist/
+web-build/
+.jsc/
+.watchmanconfig
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Project Specific
+lane-project-key.pem
+*.pem
+yolov8n.pt
+result.jpg
+test_road.jpg
+클컴 텀프 계획.pdf
+
+# OS
+.DS_Store
+Thumbs.db
