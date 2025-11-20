@@ -30,3 +30,9 @@ test_road.jpg
 # OS
 .DS_Store
 Thumbs.db
+
+# Large Data & Models
+venv_train/
+Lane-Car-Detection-real-1/
+raw_data_100/
+runs/
