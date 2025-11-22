@@ -1,8 +1,10 @@
 1. 백엔드 서버 열기(AWS)
 
-powershell에서 실행
+wsl24.04에서 실행
 
 ssh -i "lane-project-key.pem" ubuntu@15.165.177.0
+source ~/lane-project/venv/bin/activate
+
 
 키 파일 권한 에러가 나면 ~/lane-project-key.pem 확인
 
