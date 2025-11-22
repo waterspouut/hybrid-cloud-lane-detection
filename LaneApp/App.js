@@ -16,6 +16,7 @@ export default function App() {
   const [fps, setFps] = useState(0);
   const [processingTime, setProcessingTime] = useState(0);
   const [serverRes, setServerRes] = useState({ width: 640, height: 480 }); // 서버 처리 해상도
+  const [isCameraReady, setIsCameraReady] = useState(false); // 카메라 준비 상태
   
   const cameraRef = useRef(null);
   const lastSentTime = useRef(0);
@@ -64,6 +65,7 @@ export default function App() {
     const intervalId = setInterval(async () => {
       if (
         cameraRef.current && 
+        isCameraReady && // 카메라가 준비되었을 때만 실행
         !isProcessing.current && 
         (Date.now() - lastSentTime.current > 150) 
       ) {
@@ -102,7 +104,7 @@ export default function App() {
     }, 50); 
 
     return () => clearInterval(intervalId);
-  }, [permission]);
+  }, [permission, isCameraReady]);
 
   if (!permission) return <View />;
   if (!permission.granted) {
@@ -124,6 +126,13 @@ export default function App() {
         facing="back"
         ref={cameraRef}
         animateShutter={false}
+        onCameraReady={() => {
+          console.log("📷 카메라 준비 완료");
+          setIsCameraReady(true);
+        }}
+        onMountError={(error) => {
+          console.error("📷 카메라 마운트 에러:", error);
+        }}
       />
       
       {/* AROverlay: 카메라 위에 겹쳐지는 오버레이 */}
