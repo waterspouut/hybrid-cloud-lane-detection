@@ -1,0 +1,15 @@
+names:
+- car
+- lane
+- person
+- truck
+nc: 4
+roboflow:
+  license: CC BY 4.0
+  project: lane-car-detection-real-63e0w
+  url: https://universe.roboflow.com/orm-v3brw/lane-car-detection-real-63e0w/dataset/2
+  version: 2
+  workspace: orm-v3brw
+test: ../train/images
+train: ../train/images
+val: ../train/images

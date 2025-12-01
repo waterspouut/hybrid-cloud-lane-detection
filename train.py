@@ -6,7 +6,7 @@ from roboflow import Roboflow # Roboflow 라이브러리 추가
 # ⚠️ API Key는 외부에 노출되지 않도록 주의하세요!
 rf = Roboflow(api_key="2Os4MSTH57UlwI5dp0Af")
 project = rf.workspace("orm-v3brw").project("lane-car-detection-real-63e0w")
-version = project.version(1)
+version = project.version(2)  # 400장 데이터셋 (업데이트됨)
 dataset = version.download("yolov8")
 # --- [여기까지] Roboflow 코드 ---
 
@@ -32,7 +32,7 @@ results = model.train(
     project='runs/train',
     name='exp_v1',
     exist_ok=True,
-    val=False  # <-- [핵심!] 검증 과정을 건너뜁니다. (데이터가 적을 때 사용)
+    val=True  # Validation 활성화: mAP, precision, recall 등 측정
 )
 
 # 3. 완료 안내
